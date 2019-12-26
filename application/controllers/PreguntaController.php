@@ -16,6 +16,7 @@ class PreguntaController extends CI_Controller
         $data['pregunta'] = $this->PreguntasModel->obtenerPreguntas();
         $this->load->view('header');
         $this->load->view('pregunta/pregunta', $data);
+        //$this->load->view('pregunta/slide', $data);
         $this->load->view('footer');
     }
 
