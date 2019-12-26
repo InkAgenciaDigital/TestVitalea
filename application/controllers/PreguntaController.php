@@ -22,6 +22,7 @@ class PreguntaController extends CI_Controller
 
     public function responder()
     {
+        var_dump($this->input->post());
         $correoUsuario = $this->input->post('USR_Correo_Usuario');
         $nombreUsuario = "";
         for ($i = 0; $i < strlen($correoUsuario); $i++){
@@ -49,14 +50,15 @@ class PreguntaController extends CI_Controller
                         $idChequeo = 1;
                     }else if ($i >= 6 && $i <= 9){
                         $idChequeo = 2;
-                    }else if($i >= 10 && $i <= 13){
+                    }else if($i >= 10){
                         $idChequeo = 3;
                     }
                     $datosRta = [
                         'TTL_Usuario_Id' => $idUsuario,
                         'TTL_Pregunta_Id' => $i,
                         'TTL_Respuesta_Id' => $dato,
-                        'TTL_Resultado_Id' => $idChequeo
+                        'TTL_Resultado_Id' => $idChequeo,
+                        'TTL_Resultado_Recomendado_Id' => 0
                     ];
                     $this->TotalModel->agregarTotal($datosRta);
                     $i = $i + 1;
@@ -64,61 +66,6 @@ class PreguntaController extends CI_Controller
             }
         }
         redirect(base_url().'resultadoController/index/'.$idUsuario);
-    }
-
-    public function recomendado(){
-        $resultado = $this->TotalModel->obtenerTotales($id);
-        $cantidadNutricion = 0; $respuestaNutricion = 0; $porcentajeNutricion = 0;
-        $cantidadVegetariano = 0; $respuestaVegetariano = 0; $porcentajeVegetariano = 0;
-        $cantidadCeliaco = 0; $respuestaCeliaco = 0; $porcentajeCeliaco = 0;
-        foreach ($resultado->result() as $key => $res) {
-            if($res->RST_Id_Resultado == 1){
-                $cantidadNutricion = $cantidadNutricion + 1;
-                if($res->RTA_Sistema == $res->RTA_Usuario){
-                    $respuestaNutricion = $respuestaNutricion + 1;
-                }
-            }
-            else if($res->RST_Id_Resultado == 2){
-                $cantidadVegetariano = $cantidadVegetariano + 1;
-                if($res->RTA_Sistema == $res->RTA_Usuario){
-                    $respuestaVegetariano = $respuestaVegetariano + 1;
-                }
-            }else if($res->RST_Id_Resultado == 3){
-                $cantidadCeliaco = $cantidadCeliaco + 1;
-                if($res->RTA_Sistema == $res->RTA_Usuario){
-                    $respuestaCeliaco = $respuestaCeliaco + 1;
-                }
-            }
-        }
-        $porcentajeNutricion = ($respuestaNutricion / $cantidadNutricion)*100;
-        $porcentajeVegetariano = ($respuestaVegetariano / $cantidadVegetariano)*100;
-        $porcentajeCeliaco = ($respuestaCeliaco / $cantidadCeliaco)*100;
-        if($porcentajeNutricion > 50){
-            $recomendacionNutricional = 'Chequeo Nutricional';
-        }else{
-            $recomendacionNutricional = 'Chequeo Express';
-        }
-        if($porcentajeVegetariano > 50){
-            $recomendacionVegetariano = 'Chequeo Vegetariano';
-        }else{
-            $recomendacionVegetariano = 'Chequeo Express';
-        }
-        if($porcentajeCeliaco > 50){
-            $recomendacionCeliaco = 'Chequeo Celiaco';
-        }else{
-            $recomendacionCeliaco = 'Chequeo General';
-        }
-
-        if($porcentajeNutricion > $porcentajeVegetariano && $porcentajeNutricion > $porcentajeCeliaco)
-            $recomendado = $recomendacionNutricional;
-        else if($porcentajeVegetariano > $porcentajeNutricion && $porcentajeVegetariano > $porcentajeCeliaco)
-            $recomendado = $recomendacionVegetariano;
-        else if($porcentajeCeliaco > $porcentajeNutricion && $porcentajeCeliaco > $porcentajeVegetariano)
-            $recomendado = $recomendacionCeliaco;
-        $datos = [
-            'recomendado' => $recomendado
-        ];
-        return $datos;
     }
 
     public function listar(){
