@@ -6,14 +6,16 @@ class InformeController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('TotalModel');
         if(!$this->session->userdata('Login'))
             redirect(base_url()."loginController");
     }
 
 	public function index()
 	{
+        $datos['informes'] = $this->TotalModel->informe();
         $this->load->view('header');
-        $this->load->view('informe/informe');
+        $this->load->view('informe/informe', $datos);
         $this->load->view('footer');
     }
 
@@ -47,5 +49,12 @@ class InformeController extends CI_Controller
         );
 
         echo json_encode($result);
+    }
+
+    public function informeDatos(){
+        $datos = $this->TotalModel->informe();
+        $this->load->view('header');
+        $this->load->view('informe/informe', $datos);
+        $this->load->view('footer');
     }
 }

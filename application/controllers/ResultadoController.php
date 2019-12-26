@@ -39,19 +39,33 @@ class ResultadoController extends CI_Controller
         $porcentajeCeliaco = ($respuestaCeliaco / $cantidadCeliaco)*100;
         if($porcentajeNutricion > 50){
             $recomendacionNutricional = 'Chequeo Nutricional';
+            $recoN = 1;
         }else{
             $recomendacionNutricional = 'Chequeo Express';
+            $recoN = 4;
         }
         if($porcentajeVegetariano > 50){
             $recomendacionVegetariano = 'Chequeo Vegetariano';
+            $recoV = 2;
         }else{
             $recomendacionVegetariano = 'Chequeo Express';
+            $recoV = 4;
         }
         if($porcentajeCeliaco > 50){
             $recomendacionCeliaco = 'Chequeo Celiaco';
+            $recoC = 3;
         }else{
             $recomendacionCeliaco = 'Chequeo General';
+            $recoC = 5;
         }
+        if($porcentajeNutricion > $porcentajeVegetariano && $porcentajeNutricion > $porcentajeCeliaco)
+            $recomendado = $recoN;
+        else if($porcentajeVegetariano > $porcentajeNutricion && $porcentajeVegetariano > $porcentajeCeliaco)
+            $recomendado = $recoV;
+        else if($porcentajeCeliaco > $porcentajeNutricion && $porcentajeCeliaco > $porcentajeVegetariano)
+            $recomendado = $recoC;
+        $dato = ['TTL_Resultado_Recomendado_Id' => $recomendado];
+        $this->TotalModel->actualizarTotal($id, $dato);
         $datos = [
             'porcentajeNutricion' => $porcentajeNutricion,
             'porcentajeCeliaco' => $porcentajeCeliaco,

@@ -19,6 +19,19 @@
 <!-- filter -->
 <script src="<?= base_url()?>assets/template/plugins/shuffle/shuffle.min.js"></script>
 
+<!-- Jquery DataTable Plugin Js -->
+<script src="<?= base_url()?>assets/template/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="<?= base_url()?>assets/template/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+<script src="<?= base_url()?>assets/template/js/pages/tables/jquery-datatable.js"></script>
+
 <!-- Main Script -->
 <script src="<?= base_url()?>assets/template/js/script.js"></script>
 

@@ -56,15 +56,15 @@
       <div class="col-lg-12 text-center">
         <h3 class="section-title">Informe</h3>
       </div>
-      <table id="resultado_table" class="table table-striped table-bordered table-responsive" role="grid" aria-describedby="datatable-responsive_info" style="width:100%" width="100%" cellspacing="0">
+      <table id="resultado_table" class="table table-striped table-bordered table-responsive js-exportable" role="grid" aria-describedby="datatable-responsive_info" style="width:100%" width="100%" cellspacing="0">
         <thead>
           <tr class="tr">
             <th>Id total</th>
-            <th>Usuario </th>
+            <th>Usuario</th>
             <th>Pregunta</th>
             <th>Resultado</th>
           </tr>
-			  </thead>
+        </thead>
 			</table>
     </div>
     <div class="col-lg-8 mx-auto">

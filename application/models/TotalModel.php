@@ -25,4 +25,23 @@ class TotalModel extends CI_Model
         if($query->num_rows() > 0) return $query;
         else return false;
     }
+
+    public function actualizarTotal($id, $dato){
+        $this->db->where('TTL_Usuario_Id', $id);
+        $this->db->update('TBL_Total', $dato);
+    }
+
+    public function informe(){
+        $this->db->select("u.USR_Nombres_Usuario, res.RST_Nombre_Resultado");
+        $this->db->from('TBL_Total as t');
+        $this->db->join('TBL_Pregunta as p', 't.TTL_Pregunta_Id = p.PRG_Id_Pregunta');
+        $this->db->join('TBL_Respuesta as rd', 'rd.RTA_Id_Respuesta = t.TTL_Respuesta_Id');
+        $this->db->join('TBL_Respuesta as ru', 'p.PRG_Respuesta_No_Favorable_Id = ru.RTA_Id_Respuesta');
+        $this->db->join('TBL_Resultado as res', 'res.RST_Id_Resultado = t.TTL_Resultado_Recomendado_Id');
+        $this->db->join('TBL_Usuario as u', 'u.USR_Id_Usuario = t.TTL_Usuario_Id');
+        $this->db->order_by('p.PRG_Id_Pregunta');
+        $query = $this->db->get();
+        if($query->num_rows() > 0) return $query;
+        else return false;
+    }
 }

@@ -148,7 +148,7 @@
     }
   }
 </style>
-
+<link href="<?php echo base_url() ?>assets/template/plugins/jquery-data-table/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 </head>
 <body>
 <header class="navigation fixed-top">
